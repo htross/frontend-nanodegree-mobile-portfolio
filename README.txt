@@ -1,3 +1,16 @@
+Instructions to run app:
+
+1) Use a httpServer in conjunction with ngrok to test the page speed of index.html
+
+2) To test the framerate, open pizza.html, go to timeline under the console and hit record, scroll for 10 sec,
+   stop recording, and confirm that the average frame rate is less than 60 fps.
+
+3) Go to the main console window. Resize the pizzas multiple times. Confirm that the log statement says that resizing
+   the pizza takes less than 5ms.
+
+
+Optimizations:
+
 index.html initial page speed: mobile 27; desktop 90
 
 Steps to Optimize index.html:
@@ -25,6 +38,9 @@ main.js 60 framerate challenge:
 
 2) Replace  phase = Math.sin((document.body.scrollTop / 1250) + (i % 5))  with  phase = Math.sin((scrollTop / 1250) + (i % 5)) (line: 506)
    Create var scrollTop = document.body.scrollTop outside of the for loop, it only needs to be computed once.
+
+3) 200 pizzas can not be displayed on the screen at one time. Reducing the number of pizzas improves the frame rate because
+   fewer pizzas have to move each time the user scrolls
 
 
 Resize pizza in under 5ms:
