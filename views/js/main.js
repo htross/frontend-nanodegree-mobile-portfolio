@@ -522,10 +522,13 @@ function updatePositions() {
   window.performance.mark("mark_start_frame");
 
   var items = document.querySelectorAll('.mover');
+
+    //Scroll top only needs to be computed once as opposed to every loop iteration
   var scrollTop = document.body.scrollTop;
+
   for (var i = 0; i < items.length; i++) {
-    var phase = Math.sin((scrollTop / 1250) + (i % 5));
-    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+        var phase = Math.sin((scrollTop / 1250) + (i % 5));
+        items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
@@ -545,7 +548,14 @@ window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  for (var i = 0; i < 200; i++) {
+
+ /*
+  * Do not need to create 200 pizza objects. No pizza should have a top below
+  * the window height. This can be prevented by setting i such that the top calculation
+  * below will be less than the innerHeight of the window
+  */
+
+  for (var i = 0; i < (Math.ceil(window.innerHeight / s) * cols); i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
